@@ -18,13 +18,18 @@
 
 ## 📌 Overview
 
-OAmcache is a security and privacy tool from the OwlSec suite.
+OAmcache analyzes the Windows Amcache.hve registry hive, which records evidence of programs that ran or were installed. It includes its own REGF hive parser and extracts files with SHA-1 hashes, installed applications, drivers and shortcuts from Windows 7 to 11. A triage engine flags suspicious entries and maps them to MITRE ATT&CK.
 
 ---
 
 ## ✨ Features
 
-- Standalone executable, no Python installation needed.
+- Native Windows registry (REGF) parser with checksum validation, big-data values and ASCII/UTF-16 names
+- Amcache extraction for Windows 10/11 and the legacy 7/8 layout: files with SHA-1, path, publisher, version and link date; apps; drivers; shortcuts
+- Triage: masquerading system binaries, renamed tools, offensive and remote-access tools, temp/download paths, double extensions, BYOVD drivers, future link dates
+- Timeline with date and keyword filters, search, SHA-1 export and IOC hash matching
+- Generic Hive Explorer for any hive (NTUSER, SYSTEM and others) and a demo hive generator
+- Reports in TXT / JSON / Markdown / CSV / SARIF
 
 ---
 
@@ -38,8 +43,14 @@ OAmcache is a security and privacy tool from the OwlSec suite.
 ## 🚀 Usage
 
 ```bash
-./OAmcache
+./OAmcache                                   # interactive menu
+./OAmcache --file Amcache.hve
+./OAmcache --file Amcache.hve --timeline --from 2026-01-01
+./OAmcache --file Amcache.hve --ioc bad_sha1.txt
+./OAmcache --file Amcache.hve --drivers
 ```
+
+Run `./OAmcache --help` for the full list of options.
 
 ---
 
